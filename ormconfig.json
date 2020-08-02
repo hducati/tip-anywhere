@@ -1,0 +1,18 @@
+{
+  "type": "postgres",
+  "host": "localhost",
+  "post": 5432,
+  "username": "postgres",
+  "password": "Feit@n0721_99",
+  "database": "gostack_gobarber",
+  "entities": [
+    "./src/models/*.ts"
+  ],
+  "migrations": [
+    "./src/database/migrations/*.ts"
+  ],
+
+  "cli": {
+    "migrationsDir": "./src/database/migrations"
+  }
+}
