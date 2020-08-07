@@ -4,7 +4,7 @@
   "post": 5432,
   "username": "postgres",
   "password": "Feit@n0721_99",
-  "database": "gostack_gobarber",
+  "database": "tip_anywhere",
   "entities": [
     "./src/models/*.ts"
   ],
