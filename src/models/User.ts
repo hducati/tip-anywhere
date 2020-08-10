@@ -30,9 +30,6 @@ class User {
   phone_number: string;
 
   @Column()
-  avatar: string;
-
-  @Column()
   telegram: string;
 
   @Column()
@@ -40,6 +37,9 @@ class User {
 
   @Column()
   facebook: string;
+
+  @Column()
+  avatar: string;
 
   @CreateDateColumn()
   created_at: Date;
