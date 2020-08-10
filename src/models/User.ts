@@ -26,7 +26,9 @@ class User {
   @Column()
   password: string;
 
-  @Column()
+  @Column({
+    length: 13,
+  })
   phone_number: string;
 
   @Column()
