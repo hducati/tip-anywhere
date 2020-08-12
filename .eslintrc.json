@@ -1,7 +1,8 @@
 {
     "env": {
         "es2020": true,
-        "node": true
+        "node": true,
+        "jest": true
     },
     "extends": [
       "airbnb-base",
@@ -9,6 +10,10 @@
       "prettier/@typescript-eslint",
       "plugin:prettier/recommended"
     ],
+    "globals": {
+      "Atomics": "readonly",
+      "SharedArrayBuffer": "readonly"
+    },
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
         "ecmaVersion": 11,
@@ -23,6 +28,7 @@
       "class-methods-use-this":"off",
       "camelcase": "off",
       "@typescript-eslint/camelcase": ["off"],
+      "import/no-duplicates": "off",
       "@typescript-eslint/no-unused-vars": ["error", {
         "argsIgnorePattern": "_"
       }],
