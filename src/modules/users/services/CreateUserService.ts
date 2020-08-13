@@ -1,10 +1,10 @@
 import { getRepository } from 'typeorm';
 import { hash } from 'bcryptjs';
 
-import User from '../models/User';
-import AppError from '../errors/AppError';
+import AppError from '@shared/errors/AppError';
+import User from '../infra/typeorm/entities/User';
 
-interface Request {
+interface IRequest {
   name: string;
   birthday_date: Date;
   email: string;
@@ -27,7 +27,7 @@ class CreateUserService {
     telegram,
     whatsapp,
     facebook,
-  }: Request): Promise<User> {
+  }: IRequest): Promise<User> {
     const usersRepository = getRepository(User);
 
     const checkUserExists = usersRepository.findOne({
