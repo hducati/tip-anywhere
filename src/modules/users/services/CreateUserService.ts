@@ -1,7 +1,9 @@
-import { getRepository } from 'typeorm';
-import { hash } from 'bcryptjs';
+import { injectable, inject } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
+import IUsersRepository from '../repositories/IUsersRepository';
+import IHashProvider from '../providers/HashProvider/models/IHashProvider';
+
 import User from '../infra/typeorm/entities/User';
 
 interface IRequest {
@@ -16,7 +18,16 @@ interface IRequest {
   facebook: string;
 }
 
+@injectable()
 class CreateUserService {
+  constructor(
+    @inject('UsersRepository')
+    private usersRepository: IUsersRepository,
+
+    @inject('HashProvider')
+    private hashProvider: IHashProvider,
+  ) {}
+
   public async execute({
     name,
     birthday_date,
@@ -28,19 +39,15 @@ class CreateUserService {
     whatsapp,
     facebook,
   }: IRequest): Promise<User> {
-    const usersRepository = getRepository(User);
-
-    const checkUserExists = usersRepository.findOne({
-      where: { email },
-    });
+    const checkUserExists = await this.usersRepository.findByEmail(email);
 
     if (checkUserExists) {
       throw new AppError('Email address already used');
     }
 
-    const hashedPassword = await hash(password, 8);
+    const hashedPassword = await this.hashProvider.generateHash(password);
 
-    const user = usersRepository.create({
+    const user = await this.usersRepository.create({
       name,
       birthday_date,
       email,
@@ -51,8 +58,6 @@ class CreateUserService {
       whatsapp,
       facebook,
     });
-
-    await usersRepository.save(user);
 
     return user;
   }
