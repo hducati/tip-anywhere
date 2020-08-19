@@ -1,42 +1,28 @@
 import { Router } from 'express';
+import { Joi, celebrate, Segments } from 'celebrate';
 
-import CreateUserService from '../../../services/CreateUserService';
+import UsersController from '../controllers/UsersController';
 
 const usersRouter = Router();
+const usersController = new UsersController();
 
-usersRouter.post('/', async (request, response) => {
-  try {
-    const {
-      name,
-      birthday_date,
-      email,
-      password,
-      description,
-      phone_number,
-      telegram,
-      whatsapp,
-      facebook,
-    } = request.body;
+usersRouter.post(
+  '/',
+  celebrate({
+    [Segments.BODY]: {
+      name: Joi.string().required(),
+      birthday_date: Joi.date().required(),
+      email: Joi.string().required(),
+      password: Joi.string().required(),
+      description: Joi.string(),
+      phone_number: Joi.string().length(13),
+      telegram: Joi.string(),
+      whatsapp: Joi.string(),
+      facebook: Joi.string(),
+    },
+  }),
 
-    const createUser = new CreateUserService();
-    const user = await createUser.execute({
-      name,
-      birthday_date,
-      email,
-      description,
-      password,
-      phone_number,
-      telegram,
-      whatsapp,
-      facebook,
-    });
-
-    delete user.password;
-
-    return response.json(user);
-  } catch (err) {
-    return response.status(400).json({ err: err.message });
-  }
-});
+  usersController.create,
+);
 
 export default usersRouter;
