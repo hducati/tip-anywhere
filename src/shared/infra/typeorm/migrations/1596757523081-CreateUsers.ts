@@ -27,33 +27,40 @@ export default class CreateUsers1596757523081 implements MigrationInterface {
             isUnique: true,
           },
           {
-            name: 'description',
-            type: 'varchar',
-            length: '999',
-          },
-          {
-            name: 'avatar',
-            type: 'varchar',
-          },
-          {
             name: 'password',
             type: 'varchar',
           },
           {
+            name: 'description',
+            type: 'varchar',
+            length: '999',
+            isNullable: true,
+          },
+          {
+            name: 'avatar',
+            type: 'varchar',
+            isNullable: true,
+          },
+          {
             name: 'phone_number',
             type: 'varchar',
+            length: '13',
+            isNullable: true,
           },
           {
             name: 'telegram',
             type: 'varchar',
+            isNullable: true,
           },
           {
             name: 'facebook',
             type: 'varchar',
+            isNullable: true,
           },
           {
             name: 'whatsapp',
             type: 'varchar',
+            isNullable: true,
           },
           {
             name: 'created_at',
