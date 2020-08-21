@@ -12,7 +12,7 @@ usersRouter.post(
     [Segments.BODY]: {
       name: Joi.string().required(),
       birthday_date: Joi.date().required(),
-      email: Joi.string().required(),
+      email: Joi.string().email().required(),
       password: Joi.string().required(),
       description: Joi.string(),
       phone_number: Joi.string().length(13),
