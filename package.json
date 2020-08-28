@@ -7,7 +7,8 @@
     "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files",
     "dev:server": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only src/shared/infra/http/server.ts",
     "start": "ts-node src/shared/infra/http/server.ts",
-    "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js"
+    "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
+    "test": "jest"
   },
   "devDependencies": {
     "@babel/cli": "^7.10.5",
@@ -31,6 +32,7 @@
     "eslint-import-resolver-typescript": "^2.2.0",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-prettier": "^3.1.4",
+    "jest": "^26.4.2",
     "prettier": "^2.0.5",
     "ts-node": "^8.10.2",
     "ts-node-dev": "^1.0.0-pre.56",
