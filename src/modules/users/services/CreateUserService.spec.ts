@@ -1,3 +1,4 @@
+import AppError from '@shared/errors/AppError';
 import FakeHashProvider from '../providers/HashProvider/fakes/FakeHashProvider';
 import FakeUsersRepository from '../repositories/fakes/FakeUserRepository';
 import CreateUserService from './CreateUserService';
@@ -28,5 +29,35 @@ describe('CreateUser', () => {
     });
 
     expect(user).toHaveProperty('id');
+  });
+
+  it('should not be able to create a new user with same email from another', async () => {
+    const date = new Date();
+
+    await createUser.execute({
+      name: 'Felipe Santos',
+      email: 'felipesantos@gmail.com',
+      password: '12357234',
+      birthday_date: date,
+      description: 'achei bem interessante',
+      phone_number: '123123213',
+      telegram: 'sdasdsadsa',
+      whatsapp: 'asdasda',
+      facebook: 'daswdsadaw',
+    });
+
+    await expect(
+      createUser.execute({
+        name: 'Felipe Santos',
+        email: 'felipesantos@gmail.com',
+        password: '12357234',
+        birthday_date: date,
+        description: 'achei bem interessante',
+        phone_number: '123123213',
+        telegram: 'sdasdsadsa',
+        whatsapp: 'asdasda',
+        facebook: 'daswdsadaw',
+      }),
+    ).rejects.toBeInstanceOf(AppError);
   });
 });
