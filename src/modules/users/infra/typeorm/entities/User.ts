@@ -6,6 +6,8 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
+import { IsDate, IsEmail, Length } from 'class-validator';
+
 @Entity('users')
 class User {
   @PrimaryGeneratedColumn('uuid')
@@ -15,9 +17,11 @@ class User {
   name: string;
 
   @Column()
+  @IsDate()
   birthday_date: Date;
 
   @Column()
+  @IsEmail()
   email: string;
 
   @Column()
@@ -26,9 +30,8 @@ class User {
   @Column()
   password: string;
 
-  @Column({
-    length: 13,
-  })
+  @Column()
+  @Length(11, 13)
   phone_number: string;
 
   @Column()
