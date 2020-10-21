@@ -4,8 +4,8 @@ export default interface ICreateUserDTO {
   email: string;
   description: string;
   password: string;
-  phone_number: string;
-  telegram: string;
-  whatsapp: string;
-  facebook: string;
+  phone_number?: string;
+  telegram?: string;
+  whatsapp?: string;
+  facebook?: string;
 }
