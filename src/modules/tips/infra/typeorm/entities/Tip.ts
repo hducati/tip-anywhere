@@ -22,6 +22,9 @@ class Tip {
   odd: number;
 
   @Column()
+  sport: string;
+
+  @Column()
   tip: string;
 
   @Column()

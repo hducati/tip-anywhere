@@ -7,6 +7,6 @@ export default interface ITipsRepository {
   findByUser(provider_id: string): Promise<Tip[] | undefined>;
   findByStatus(status: string): Promise<Tip[] | undefined>;
   findByLeague(league: string): Promise<Tip[] | undefined>;
+  findBySport(sport: string): Promise<Tip[] | undefined>;
   create(data: ICreateTipDTO): Promise<Tip>;
-  save(tip: Tip): Promise<Tip>;
 }
