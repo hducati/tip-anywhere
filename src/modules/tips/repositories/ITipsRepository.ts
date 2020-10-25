@@ -9,5 +9,4 @@ export default interface ITipsRepository {
   findByLeague(league: string): Promise<Tip[] | undefined>;
   findBySport(sport: string): Promise<Tip[] | undefined>;
   create(data: ICreateTipDTO): Promise<Tip>;
-  save(tip: Tip): Promise<Tip>;
 }

@@ -17,6 +17,55 @@ class TipsRepository implements ITipsRepository {
     return tip;
   }
 
+  public async findByUser(provider_id: string): Promise<Tip[] | undefined> {
+    const tips = await this.ormRepository.find({
+      where: {
+        provider_id,
+      },
+      relations: ['user'],
+    });
+
+    return tips;
+  }
+
+  public async findBySport(sport: string): Promise<Tip[] | undefined> {
+    const tips = await this.ormRepository.find({
+      where: {
+        sport,
+      },
+    });
+
+    return tips;
+  }
+
+  public async findByStatus(status: string): Promise<Tip[] | undefined> {
+    const tips = await this.ormRepository.find({
+      where: {
+        status,
+      },
+    });
+
+    return tips;
+  }
+
+  public async findAllTips(): Promise<Tip[]> {
+    const tips = await this.ormRepository.find({
+      relations: ['user'],
+    });
+
+    return tips;
+  }
+
+  public async findByLeague(league: string): Promise<Tip[] | undefined> {
+    const tips = await this.ormRepository.find({
+      where: {
+        league,
+      },
+    });
+
+    return tips;
+  }
+
   public async create({
     provider_id,
     odd,
