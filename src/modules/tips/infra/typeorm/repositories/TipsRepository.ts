@@ -1,6 +1,7 @@
 import { getRepository, Repository } from 'typeorm';
 import ICreateTipDTO from '@modules/tips/dtos/ICreateTipDTO';
 import ITipsRepository from '@modules/tips/repositories/ITipsRepository';
+import ISearchFilterDTO from '@modules/tips/dtos/ISearchFilterDTO';
 
 import Tip from '../entities/Tip';
 
@@ -22,26 +23,18 @@ class TipsRepository implements ITipsRepository {
       where: {
         provider_id,
       },
-      relations: ['user'],
+      relations: ['users'],
     });
 
     return tips;
   }
 
-  public async findBySport(sport: string): Promise<Tip[] | undefined> {
+  public async findByFilter(
+    filter: ISearchFilterDTO,
+  ): Promise<Tip[] | undefined> {
     const tips = await this.ormRepository.find({
       where: {
-        sport,
-      },
-    });
-
-    return tips;
-  }
-
-  public async findByStatus(status: string): Promise<Tip[] | undefined> {
-    const tips = await this.ormRepository.find({
-      where: {
-        status,
+        filter,
       },
     });
 
@@ -50,17 +43,7 @@ class TipsRepository implements ITipsRepository {
 
   public async findAllTips(): Promise<Tip[]> {
     const tips = await this.ormRepository.find({
-      relations: ['user'],
-    });
-
-    return tips;
-  }
-
-  public async findByLeague(league: string): Promise<Tip[] | undefined> {
-    const tips = await this.ormRepository.find({
-      where: {
-        league,
-      },
+      relations: ['users'],
     });
 
     return tips;
