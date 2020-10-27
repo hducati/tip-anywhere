@@ -43,7 +43,7 @@ class TipsRepository implements ITipsRepository {
 
   public async findAllTips(): Promise<Tip[]> {
     const tips = await this.ormRepository.find({
-      relations: ['user'],
+      relations: ['users'],
     });
 
     return tips;

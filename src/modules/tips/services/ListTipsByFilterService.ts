@@ -30,7 +30,7 @@ class ListTipsByFilterService {
     });
 
     if (!tips) {
-      throw new AppError('Search tip not founded.');
+      throw new AppError('Search tip does not exist.');
     }
 
     return tips;
