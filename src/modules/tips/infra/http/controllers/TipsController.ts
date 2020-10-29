@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
 import CreateTipService from '@modules/tips/services/CreateTipService';
+import ShowTipService from '@modules/tips/services/ShowTipService';
 
 export default class TipsController {
   public async create(request: Request, response: Response): Promise<Response> {
@@ -33,5 +34,15 @@ export default class TipsController {
     });
 
     return response.json(tipProvided);
+  }
+
+  public async show(request: Request, response: Response): Promise<Response> {
+    const { id } = request.params;
+
+    const listTip = container.resolve(ShowTipService);
+
+    const tip = await listTip.execute({ id });
+
+    return response.json(tip);
   }
 }
