@@ -1,3 +1,3 @@
 export default interface IFindAllTipsDTO {
-  except_provider_id: string;
+  except_provider_id?: string;
 }
