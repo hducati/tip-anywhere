@@ -60,28 +60,8 @@ class TipsRepository implements ITipsRepository {
     return tips;
   }
 
-  public async create({
-    provider_id,
-    odd,
-    sport,
-    tip,
-    league,
-    game,
-    unit,
-    description,
-    status,
-  }: ICreateTipDTO): Promise<Tip> {
-    const tipCreate = this.ormRepository.create({
-      provider_id,
-      odd,
-      sport,
-      tip,
-      league,
-      game,
-      unit,
-      description,
-      status,
-    });
+  public async create(tipData: ICreateTipDTO): Promise<Tip> {
+    const tipCreate = this.ormRepository.create(tipData);
 
     await this.ormRepository.save(tipCreate);
 
