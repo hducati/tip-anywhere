@@ -10,7 +10,6 @@ tipsRouter.post(
   '/',
   celebrate({
     [Segments.BODY]: {
-      provider_id: Joi.string().uuid().required(),
       odd: Joi.number().required(),
       tip: Joi.string().required(),
       sport: Joi.string(),
