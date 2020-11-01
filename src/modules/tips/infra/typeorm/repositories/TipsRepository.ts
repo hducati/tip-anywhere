@@ -76,6 +76,10 @@ class TipsRepository implements ITipsRepository {
 
     return tipCreate;
   }
+
+  public async save(tip: Tip): Promise<Tip> {
+    return this.ormRepository.save(tip);
+  }
 }
 
 export default TipsRepository;
