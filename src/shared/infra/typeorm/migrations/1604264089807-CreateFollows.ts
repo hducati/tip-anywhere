@@ -1,6 +1,6 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export default class CreateFollows1604259924416 implements MigrationInterface {
+export default class CreateFollows1604264089807 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
@@ -11,10 +11,10 @@ export default class CreateFollows1604259924416 implements MigrationInterface {
             type: 'uuid',
             isPrimary: true,
             generationStrategy: 'uuid',
-            default: 'uuid_generate',
+            default: 'uuid_generate_v4()',
           },
           {
-            name: 'followed_user__id',
+            name: 'followed_user_id',
             type: 'uuid',
           },
           {
@@ -42,8 +42,8 @@ export default class CreateFollows1604259924416 implements MigrationInterface {
             name: 'FollowedUser',
             referencedTableName: 'users',
             referencedColumnNames: ['id'],
-            columnNames: ['followed_user__id'],
-            onDelete: 'CASCADE',
+            columnNames: ['followed_user_id'],
+            onDelete: 'SET NULL',
             onUpdate: 'CASCADE',
           },
           {
@@ -51,7 +51,7 @@ export default class CreateFollows1604259924416 implements MigrationInterface {
             referencedTableName: 'users',
             referencedColumnNames: ['id'],
             columnNames: ['follower_user_id'],
-            onDelete: 'CASCADE',
+            onDelete: 'SET NULL',
             onUpdate: 'CASCADE',
           },
         ],
