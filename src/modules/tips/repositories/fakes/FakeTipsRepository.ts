@@ -70,4 +70,12 @@ export default class FakeTipsRepository implements ITipsRepository {
 
     return tipCreate;
   }
+
+  public async save(tip: Tip): Promise<Tip> {
+    const findIndex = this.tips.findIndex(findTip => findTip.id === tip.id);
+
+    this.tips[findIndex] = tip;
+
+    return tip;
+  }
 }

@@ -4,6 +4,7 @@ import ITipsRepository from '../repositories/ITipsRepository';
 import Tip from '../infra/typeorm/entities/Tip';
 
 interface IRequest {
+  provider_id: string;
   id: string;
   status: string;
 }
@@ -15,11 +16,15 @@ export default class UpdateTipService {
     private tipsRepository: ITipsRepository,
   ) {}
 
-  public async execute({ id, status }: IRequest): Promise<Tip> {
+  public async execute({ provider_id, id, status }: IRequest): Promise<Tip> {
     const tip = await this.tipsRepository.findById(id);
 
     if (!tip) {
       throw new AppError('Tip does not exist');
+    }
+
+    if (tip.provider_id !== provider_id) {
+      throw new AppError('User tried to update a tip not created by him');
     }
 
     tip.status = status;

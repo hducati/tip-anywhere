@@ -3,6 +3,7 @@ import { container } from 'tsyringe';
 
 import CreateTipService from '@modules/tips/services/CreateTipService';
 import ShowTipService from '@modules/tips/services/ShowTipService';
+import UpdateTipService from '@modules/tips/services/UpdateTipService';
 
 export default class TipsController {
   public async create(request: Request, response: Response): Promise<Response> {
@@ -42,6 +43,20 @@ export default class TipsController {
     const listTip = container.resolve(ShowTipService);
 
     const tip = await listTip.execute({ id });
+
+    return response.json(tip);
+  }
+
+  public async update(request: Request, response: Response): Promise<Response> {
+    const provider_id = request.user.id;
+
+    const { id } = request.params;
+
+    const { status } = request.body;
+
+    const updateTip = container.resolve(UpdateTipService);
+
+    const tip = await updateTip.execute({ provider_id, id, status });
 
     return response.json(tip);
   }
