@@ -1,10 +1,13 @@
 import { Router } from 'express';
 import { Joi, celebrate, Segments } from 'celebrate';
 
+import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
 import TipsController from '../controllers/TipsController';
 
 const tipsRouter = Router();
 const tipsController = new TipsController();
+
+tipsRouter.use(ensureAuthenticated);
 
 tipsRouter.post(
   '/',
