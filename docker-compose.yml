@@ -17,5 +17,4 @@ services:
     container_name: tip-anywhere-postgres
     environment: 
       - POSTGRES_PASSWORD=${POSTGRES_PASS}
-    
     ports: "5432:5432"
