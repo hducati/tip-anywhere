@@ -12,6 +12,9 @@ import UserTokensRepository from '@modules/users/infra/typeorm/repositories/User
 import ITipsRepository from '@modules/tips/repositories/ITipsRepository';
 import TipsRepository from '@modules/tips/infra/typeorm/repositories/TipsRepository';
 
+import IFollowsRepository from '@modules/follows/repositories/IFollowsRepository';
+import FollowsRepository from '@modules/follows/infra/typeorm/repositories/FollowsRepository';
+
 container.registerSingleton<IUsersRepository>(
   'UsersRepository',
   UsersRepository,
@@ -20,6 +23,11 @@ container.registerSingleton<IUsersRepository>(
 container.registerSingleton<IUserTokensRepository>(
   'UserTokensRepository',
   UserTokensRepository,
+);
+
+container.registerSingleton<IFollowsRepository>(
+  'FollowsRepository',
+  FollowsRepository,
 );
 
 container.registerSingleton<ITipsRepository>('TipsRepository', TipsRepository);
