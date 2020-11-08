@@ -39,6 +39,15 @@ export default class FakeTipsRepository implements ITipsRepository {
     return findTips;
   }
 
+  public async findByTotalTips(provider_id: string): Promise<[Tip[], number]> {
+    const findTips = this.tips.filter(tip => tip.provider_id === provider_id);
+
+    const total = this.tips.filter(tip => tip.provider_id === provider_id)
+      .length;
+
+    return [findTips, total];
+  }
+
   public async create({
     provider_id,
     odd,
