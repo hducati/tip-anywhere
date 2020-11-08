@@ -71,6 +71,16 @@ class TipsRepository implements ITipsRepository {
   public async save(tip: Tip): Promise<Tip> {
     return this.ormRepository.save(tip);
   }
+
+  public async findByTotalTips(provider_id: string): Promise<[Tip[], number]> {
+    const [tips, total] = await this.ormRepository.findAndCount({
+      where: {
+        provider_id,
+      },
+    });
+
+    return [tips, total];
+  }
 }
 
 export default TipsRepository;

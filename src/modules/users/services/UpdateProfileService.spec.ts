@@ -56,4 +56,97 @@ describe('UpdateProfile', () => {
     expect(updatedUser.whatsapp).toBe('whatsappcleyton.com');
     expect(updatedUser.facebook).toBe('facebookcleyton.com');
   });
+
+  it('should not be able to update the profile from a non-existing user', async () => {
+    const date = new Date();
+    expect(
+      updateProfileService.execute({
+        id: 'non-existing',
+        name: 'Cleython',
+        email: 'cleython@gmail.com',
+        password: '12357234',
+        birthday_date: date,
+        description: 'achei bem interessante',
+        phone_number: '123123213',
+        telegram: 'telegramcleyton.com',
+        whatsapp: 'whatsappcleyton.com',
+        facebook: 'facebookcleyton.com',
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
+
+  it('should not be able to update the email if it already exists', async () => {
+    const date = new Date();
+
+    await fakeUsersRepository.create({
+      name: 'Cleython',
+      email: 'cleython@gmail.com',
+      password: '12357234',
+      birthday_date: date,
+      description: 'achei bem interessante',
+      phone_number: '123123213',
+      telegram: 'telegramcleyton.com',
+      whatsapp: 'whatsappcleyton.com',
+      facebook: 'facebookcleyton.com',
+    });
+
+    const user = await fakeUsersRepository.create({
+      name: 'Cleython',
+      email: 'cleython2@gmail.com',
+      password: '12357234',
+      birthday_date: date,
+      description: 'achei bem interessante',
+      phone_number: '123123213',
+      telegram: 'telegramcleyton.com',
+      whatsapp: 'whatsappcleyton.com',
+      facebook: 'facebookcleyton.com',
+    });
+
+    await expect(
+      updateProfileService.execute({
+        id: user.id,
+        name: 'Cleython',
+        email: 'cleython@gmail.com',
+        password: '12357234',
+        birthday_date: date,
+        description: 'achei bem interessante',
+        phone_number: '123123213',
+        telegram: 'telegramcleyton.com',
+        whatsapp: 'whatsappcleyton.com',
+        facebook: 'facebookcleyton.com',
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
+
+  it('should be able to change the password', async () => {
+    const date = new Date();
+
+    const user = await fakeUsersRepository.create({
+      name: 'Cleython',
+      email: 'cleython2@gmail.com',
+      password: '12357234',
+      birthday_date: date,
+      description: 'achei bem interessante',
+      phone_number: '123123213',
+      telegram: 'telegramcleyton.com',
+      whatsapp: 'whatsappcleyton.com',
+      facebook: 'facebookcleyton.com',
+    });
+
+    const updatedUser = await updateProfileService.execute({
+      id: user.id,
+      name: 'Cleython',
+      email: 'cleython2@gmail.com',
+      old_password: '12357234',
+      password: 'gostei',
+      birthday_date: date,
+      description: 'achei bem interessante',
+      phone_number: '123123213',
+      telegram: 'telegramcleyton.com',
+      whatsapp: 'whatsappcleyton.com',
+      facebook: 'facebookcleyton.com',
+    });
+
+    expect(updatedUser.password).toBe('gostei');
+  });
 });
