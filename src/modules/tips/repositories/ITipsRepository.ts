@@ -8,7 +8,7 @@ export default interface ITipsRepository {
   findAllTips(data: IFindAllTipsDTO): Promise<Tip[]>;
   findByUser(provider_id: string): Promise<Tip[] | undefined>;
   findByFilter(filter: ISearchFilterDTO): Promise<Tip[] | undefined>;
-  findByTotalTips(provider_id: string): Promise<number | undefined>;
+  findByTotalTips(provider_id: string): Promise<[Tip[], number]>;
   create(data: ICreateTipDTO): Promise<Tip>;
   save(tip: Tip): Promise<Tip>;
 }
