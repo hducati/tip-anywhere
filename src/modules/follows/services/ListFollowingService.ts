@@ -4,7 +4,7 @@ import IFollowsRepository from '../repositories/IFollowsRepository';
 import Follow from '../infra/typeorm/entities/Follow';
 
 interface IRequest {
-  follower_user_id: string;
+  followed_user_id: string;
 }
 
 @injectable()
@@ -15,12 +15,12 @@ export default class ListFollowersService {
   ) {}
 
   public async execute({
-    follower_user_id,
+    followed_user_id,
   }: IRequest): Promise<[Follow[], number]> {
     const [
       follows,
       countFollowing,
-    ] = await this.followsRepository.findFollowedUsers(follower_user_id);
+    ] = await this.followsRepository.findFollowedUsers(followed_user_id);
 
     if (!follows) {
       throw new AppError('User does not follow anyone');
