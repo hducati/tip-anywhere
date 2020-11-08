@@ -73,13 +73,13 @@ class TipsRepository implements ITipsRepository {
   }
 
   public async findByTotalTips(provider_id: string): Promise<[Tip[], number]> {
-    const totalTips = await this.ormRepository.findAndCount({
+    const [tips, total] = await this.ormRepository.findAndCount({
       where: {
         provider_id,
       },
     });
 
-    return totalTips;
+    return [tips, total];
   }
 }
 
