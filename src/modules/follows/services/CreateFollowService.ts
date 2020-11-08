@@ -39,7 +39,7 @@ export default class CreateFollowService {
       throw new AppError('Follower user does not exist');
     }
 
-    const follow = this.followsRepository.create({
+    const follow = await this.followsRepository.create({
       followed_user_id,
       follower_user_id,
     });

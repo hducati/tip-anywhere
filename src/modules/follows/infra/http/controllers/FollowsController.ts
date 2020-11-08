@@ -12,7 +12,10 @@ export default class FollowsConstroller {
 
     const createFollow = container.resolve(CreateFollowService);
 
-    const follow = createFollow.execute({ follower_user_id, followed_user_id });
+    const follow = await createFollow.execute({
+      follower_user_id,
+      followed_user_id,
+    });
 
     return response.json(follow);
   }
@@ -24,7 +27,7 @@ export default class FollowsConstroller {
 
     const updateFollow = container.resolve(UpdateFollowService);
 
-    const follow = updateFollow.execute({ id, follower_user_id });
+    const follow = await updateFollow.execute({ id, follower_user_id });
 
     return response.json(classToClass(follow));
   }
