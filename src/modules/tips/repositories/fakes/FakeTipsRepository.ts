@@ -3,6 +3,7 @@ import Tip from '@modules/tips/infra/typeorm/entities/Tip';
 import ITipsRepository from '../ITipsRepository';
 import ICreateTipDTO from '../../dtos/ICreateTipDTO';
 import ISearchFilterDTO from '../../dtos/ISearchFilterDTO';
+import IFindAllTipsDTO from '../../dtos/IFindAllTipsDTO';
 
 export default class FakeTipsRepository implements ITipsRepository {
   private tips: Tip[] = [];
@@ -21,8 +22,16 @@ export default class FakeTipsRepository implements ITipsRepository {
     return findUserTips;
   }
 
-  public async findAllTips(): Promise<Tip[]> {
-    return this.tips;
+  public async findAllTips({
+    except_provider_id,
+  }: IFindAllTipsDTO): Promise<Tip[]> {
+    let { tips } = this;
+
+    if (except_provider_id) {
+      tips = this.tips.filter(tip => tip.provider_id !== except_provider_id);
+    }
+
+    return tips;
   }
 
   public async findByFilter({
@@ -48,32 +57,10 @@ export default class FakeTipsRepository implements ITipsRepository {
     return [findTips, total];
   }
 
-  public async create({
-    provider_id,
-    odd,
-    sport,
-    tip,
-    league,
-    game,
-    unit,
-    description,
-    status,
-  }: ICreateTipDTO): Promise<Tip> {
+  public async create(tipData: ICreateTipDTO): Promise<Tip> {
     const tipCreate = new Tip();
 
-    Object.assign(
-      tipCreate,
-      { id: uuid() },
-      provider_id,
-      odd,
-      sport,
-      tip,
-      league,
-      game,
-      unit,
-      description,
-      status,
-    );
+    Object.assign(tipCreate, { id: uuid() }, tipData);
 
     this.tips.push(tipCreate);
 
