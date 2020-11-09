@@ -44,20 +44,21 @@ class TipsRepository implements ITipsRepository {
 
   public async findAllTips({
     except_provider_id,
-  }: IFindAllTipsDTO): Promise<Tip[]> {
+  }: IFindAllTipsDTO): Promise<[Tip[], number]> {
     let tips: Tip[];
+    let countOfTips: number;
 
     if (except_provider_id) {
-      tips = await this.ormRepository.find({
+      [tips, countOfTips] = await this.ormRepository.findAndCount({
         where: {
           provider_id: Not(except_provider_id),
         },
       });
     } else {
-      tips = await this.ormRepository.find();
+      [tips, countOfTips] = await this.ormRepository.findAndCount();
     }
 
-    return tips;
+    return [tips, countOfTips];
   }
 
   public async create(tipData: ICreateTipDTO): Promise<Tip> {

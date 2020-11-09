@@ -12,11 +12,11 @@ export default class ShowAllTips {
     private tipsRepository: ITipsRepository,
   ) {}
 
-  public async execute({ provider_id }: IRequest): Promise<Tip[]> {
-    const tips = await this.tipsRepository.findAllTips({
+  public async execute({ provider_id }: IRequest): Promise<[Tip[], number]> {
+    const [tips, countOfTips] = await this.tipsRepository.findAllTips({
       except_provider_id: provider_id,
     });
 
-    return tips;
+    return [tips, countOfTips];
   }
 }
