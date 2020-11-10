@@ -7,6 +7,7 @@ import {
 } from 'typeorm';
 
 import { IsDate, IsEmail, Length } from 'class-validator';
+import { Exclude } from 'class-transformer';
 
 @Entity('users')
 class User {
@@ -28,6 +29,7 @@ class User {
   description: string;
 
   @Column()
+  @Exclude()
   password: string;
 
   @Column()

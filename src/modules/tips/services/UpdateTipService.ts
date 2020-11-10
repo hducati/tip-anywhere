@@ -27,6 +27,10 @@ export default class UpdateTipService {
       throw new AppError('User tried to update a tip not created by him');
     }
 
+    if (status === tip.status) {
+      throw new AppError('User tried to update to the same value');
+    }
+
     tip.status = status;
 
     return this.tipsRepository.save(tip);
