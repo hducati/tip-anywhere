@@ -1,10 +1,13 @@
 import { Router } from 'express';
 import { Joi, celebrate, Segments } from 'celebrate';
 
+import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
 import UsersController from '../controllers/UsersController';
+import ListUsersController from '../controllers/ListUsersController';
 
 const usersRouter = Router();
 const usersController = new UsersController();
+const usersListController = new ListUsersController();
 
 usersRouter.post(
   '/',
@@ -24,5 +27,7 @@ usersRouter.post(
 
   usersController.create,
 );
+
+usersRouter.get('/list', ensureAuthenticated, usersListController.index);
 
 export default usersRouter;
