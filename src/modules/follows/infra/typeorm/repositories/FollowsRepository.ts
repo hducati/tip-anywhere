@@ -52,21 +52,6 @@ export default class FollowsRepository implements IFollowsRepository {
     return follow;
   }
 
-  public async findUsers(
-    followed_user_id: string,
-    follower_user_id: string,
-  ): Promise<Follow | undefined> {
-    const follow = await this.ormRepository.findOne({
-      where: {
-        follower_user_id,
-        followed_user_id,
-      },
-      relations: ['users'],
-    });
-
-    return follow;
-  }
-
   public async save(follow: Follow): Promise<Follow> {
     return this.ormRepository.save(follow);
   }
