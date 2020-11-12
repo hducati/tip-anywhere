@@ -24,14 +24,17 @@ export default class FakeTipsRepository implements ITipsRepository {
 
   public async findAllTips({
     except_provider_id,
-  }: IFindAllTipsDTO): Promise<Tip[]> {
+  }: IFindAllTipsDTO): Promise<[Tip[], number]> {
     let { tips } = this;
+    let countOfTips = this.tips.length;
 
     if (except_provider_id) {
       tips = this.tips.filter(tip => tip.provider_id !== except_provider_id);
+
+      countOfTips = tips.length;
     }
 
-    return tips;
+    return [tips, countOfTips];
   }
 
   public async findByFilter({
