@@ -42,6 +42,16 @@ class TipsRepository implements ITipsRepository {
     return tips;
   }
 
+  public async findByTotalTips(provider_id: string): Promise<[Tip[], number]> {
+    const [tips, total] = await this.ormRepository.findAndCount({
+      where: {
+        provider_id,
+      },
+    });
+
+    return [tips, total];
+  }
+
   public async findAllTips({
     except_provider_id,
   }: IFindAllTipsDTO): Promise<[Tip[], number]> {
@@ -71,16 +81,6 @@ class TipsRepository implements ITipsRepository {
 
   public async save(tip: Tip): Promise<Tip> {
     return this.ormRepository.save(tip);
-  }
-
-  public async findByTotalTips(provider_id: string): Promise<[Tip[], number]> {
-    const [tips, total] = await this.ormRepository.findAndCount({
-      where: {
-        provider_id,
-      },
-    });
-
-    return [tips, total];
   }
 }
 
