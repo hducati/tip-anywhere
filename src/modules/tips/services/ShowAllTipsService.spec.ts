@@ -12,7 +12,7 @@ describe('ListTips', () => {
 
   it('should be able to list all tips', async () => {
     const tip1 = await fakeTipsRepository.create({
-      provider_id: 'provider',
+      provider_id: 'provider_logged',
       odd: 2,
       sport: 'Futebol',
       tip: 'Futebol é legal',
