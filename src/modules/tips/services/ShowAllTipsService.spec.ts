@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import FakeTipsRepository from '../repositories/fakes/FakeTipsRepository';
 import ShowAllTipsService from './ShowAllTipsService';
 
@@ -12,7 +13,7 @@ describe('ListTips', () => {
 
   it('should be able to list all tips', async () => {
     const tip1 = await fakeTipsRepository.create({
-      provider_id: 'provider_logged',
+      provider_id: 'provider',
       odd: 2,
       sport: 'Futebol',
       tip: 'Futebol é legal',
@@ -47,10 +48,11 @@ describe('ListTips', () => {
       league: 'Interessante',
     });
 
-    const tips = await showAllTipsService.execute({
+    const [tips, countOfTips] = await showAllTipsService.execute({
       provider_id: loggedUser.provider_id,
     });
 
     expect(tips).toEqual([tip1, tip2]);
+    expect(countOfTips).toEqual(2);
   });
 });
