@@ -32,10 +32,6 @@ export default class ListFollowersService {
       countFollowers,
     ] = await this.followsRepository.findFollowers(follower_user_id);
 
-    if (!follows) {
-      throw new AppError('User does not have any followers');
-    }
-
     return [follows, countFollowers];
   }
 }
