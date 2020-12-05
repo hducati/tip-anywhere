@@ -27,6 +27,10 @@ export default class CreateFollowService {
       followed_user_id,
     );
 
+    if (followed_user_id === follower_user_id) {
+      throw new AppError('Not possible to follow yourself.');
+    }
+
     if (!findFollowedUser) {
       throw new AppError('Followed user does not exist');
     }
@@ -36,7 +40,7 @@ export default class CreateFollowService {
     );
 
     if (!findFollowerUser) {
-      throw new AppError('Follower user does not exist');
+      throw new AppError('Follower does not exist');
     }
 
     const follow = await this.followsRepository.create({

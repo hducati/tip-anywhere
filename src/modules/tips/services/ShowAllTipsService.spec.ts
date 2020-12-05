@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import FakeTipsRepository from '../repositories/fakes/FakeTipsRepository';
 import ShowAllTipsService from './ShowAllTipsService';
 
@@ -47,10 +48,11 @@ describe('ListTips', () => {
       league: 'Interessante',
     });
 
-    const tips = await showAllTipsService.execute({
+    const [tips, countOfTips] = await showAllTipsService.execute({
       provider_id: loggedUser.provider_id,
     });
 
     expect(tips).toEqual([tip1, tip2]);
+    expect(countOfTips).toEqual(2);
   });
 });

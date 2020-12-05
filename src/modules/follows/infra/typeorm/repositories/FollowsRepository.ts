@@ -23,6 +23,7 @@ export default class FollowsRepository implements IFollowsRepository {
       {
         where: {
           followed_user_id,
+          is_following: true,
         },
         relations: ['users'],
       },
@@ -37,6 +38,7 @@ export default class FollowsRepository implements IFollowsRepository {
     const [follows, countFollowers] = await this.ormRepository.findAndCount({
       where: {
         follower_user_id,
+        is_following: true,
       },
       relations: ['users'],
     });

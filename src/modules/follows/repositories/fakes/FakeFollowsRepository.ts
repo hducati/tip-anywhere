@@ -16,7 +16,9 @@ export default class FakeFollowsRepository implements IFollowsRepository {
     follower_user_id: string,
   ): Promise<[Follow[], number]> {
     const findFollowers = this.follows.filter(
-      follow => follow.follower_user_id === follower_user_id,
+      follow =>
+        follow.follower_user_id === follower_user_id &&
+        follow.is_following === true,
     );
     const countOfFollowers = findFollowers.length;
 
@@ -27,7 +29,9 @@ export default class FakeFollowsRepository implements IFollowsRepository {
     followed_user_id: string,
   ): Promise<[Follow[], number]> {
     const findFollowedUsers = this.follows.filter(
-      follow => follow.followed_user_id === followed_user_id,
+      follow =>
+        follow.followed_user_id === followed_user_id &&
+        follow.is_following === true,
     );
 
     const countOfFollowedUsers = findFollowedUsers.length;
