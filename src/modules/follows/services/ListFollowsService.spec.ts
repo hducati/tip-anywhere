@@ -1,17 +1,17 @@
-import FakeUserRepository from '@modules/users/repositories/fakes/FakeUserRepository';
 import AppError from '@shared/errors/AppError';
-import ListFollowersService from './ListFollowersService';
+import FakeUserRepository from '@modules/users/repositories/fakes/FakeUserRepository';
 import FakeFollowsRepository from '../repositories/fakes/FakeFollowsRepository';
+import ListFollowsService from './ListFollowsService';
 
 let fakeUsersRepository: FakeUserRepository;
 let fakeFollowsRepository: FakeFollowsRepository;
-let listFollowersService: ListFollowersService;
+let listFollowsService: ListFollowsService;
 
-describe('ListFollowers', async () => {
+describe('ListFollowsService', async () => {
   beforeEach(() => {
     fakeUsersRepository = new FakeUserRepository();
     fakeFollowsRepository = new FakeFollowsRepository();
-    listFollowersService = new ListFollowersService(
+    listFollowsService = new ListFollowsService(
       fakeFollowsRepository,
       fakeUsersRepository,
     );
@@ -44,32 +44,30 @@ describe('ListFollowers', async () => {
     const follow1 = await fakeFollowsRepository.create({
       followed_user_id: followedUser.id,
       follower_user_id: followerUser.id,
-      is_following: true,
     });
 
     const follow2 = await fakeFollowsRepository.create({
       followed_user_id: followedUser.id,
       follower_user_id: followerUser.id,
-      is_following: true,
     });
 
-    await fakeFollowsRepository.create({
+    const follow3 = await fakeFollowsRepository.create({
       followed_user_id: followedUser.id,
       follower_user_id: notFollowerUser.id,
     });
 
-    const [followers, countOfFollowers] = await listFollowersService.execute({
-      follower_user_id: followerUser.id,
+    const [follows, countOfFollowers] = await listFollowsService.execute({
+      followed_user_id: followedUser.id,
     });
 
-    expect(followers).toEqual([follow1, follow2]);
-    expect(countOfFollowers).toBe(2);
+    expect(follows).toEqual([follow1, follow2, follow3]);
+    expect(countOfFollowers).toBe(3);
   });
 
   it('should not be able to list from a non-exist user', async () => {
     await expect(
-      listFollowersService.execute({
-        follower_user_id: 'follower',
+      listFollowsService.execute({
+        followed_user_id: 'follower',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });

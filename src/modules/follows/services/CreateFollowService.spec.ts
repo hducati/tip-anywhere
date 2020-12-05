@@ -1,4 +1,5 @@
 import FakeUserRepository from '@modules/users/repositories/fakes/FakeUserRepository';
+import AppError from '@shared/errors/AppError';
 import CreateFollowService from './CreateFollowService';
 import FakeFollowsRepository from '../repositories/fakes/FakeFollowsRepository';
 
@@ -50,5 +51,23 @@ describe('CreateFollow', () => {
 
     expect(follow.follower_user_id).toEqual(follower_user.id);
     expect(follow.follower_user_id).toEqual(follower_user.id);
+  });
+
+  it('should not be able to follow himself', async () => {
+    const date = new Date();
+
+    const user = await fakeUsersRepository.create({
+      name: 'Felipe Santos',
+      email: 'felipesantos@gmail.com',
+      password: '12357234',
+      birthday_date: date,
+    });
+
+    await expect(
+      createFollowService.execute({
+        followed_user_id: user.id,
+        follower_user_id: user.id,
+      }),
+    ).rejects.toBeInstanceOf(AppError);
   });
 });
