@@ -1,10 +1,23 @@
 import CreateFollowService from '@modules/follows/services/CreateFollowService';
 import UpdateFollowService from '@modules/follows/services/UpdateFollowService';
+import ListFollowsPerUserService from '@modules/follows/services/ListFollowsPerUserService';
 import { container } from 'tsyringe';
 import { Request, Response } from 'express';
 import { classToClass } from 'class-transformer';
 
 export default class FollowsConstroller {
+  public async index(request: Request, response: Response): Promise<Response> {
+    const user_id = request.user.id;
+
+    const listFollows = container.resolve(ListFollowsPerUserService);
+
+    const [followers, countFollowing] = await listFollows.execute({
+      user_id,
+    });
+
+    return response.json([followers, countFollowing]);
+  }
+
   public async create(request: Request, response: Response): Promise<Response> {
     const follower_user_id = request.user.id;
 
