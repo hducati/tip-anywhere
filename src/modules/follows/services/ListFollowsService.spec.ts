@@ -57,7 +57,7 @@ describe('ListFollowsService', () => {
     });
 
     const [follows, countOfFollowers] = await listFollowsService.execute({
-      followed_user_id: followedUser.id,
+      user_id: followedUser.id,
     });
 
     expect(follows).toEqual([follow1, follow2, follow3]);
@@ -67,7 +67,7 @@ describe('ListFollowsService', () => {
   it('should not be able to list from a non-exist user', async () => {
     await expect(
       listFollowsService.execute({
-        followed_user_id: 'follower',
+        user_id: 'follower',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });

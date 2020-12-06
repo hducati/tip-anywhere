@@ -16,20 +16,16 @@ export default class FollowsRepository implements IFollowsRepository {
     return follow;
   }
 
-  public async findFollowedUsers(
-    followed_user_id: string,
-  ): Promise<[Follow[], number]> {
-    const [follows, countFollowedUsers] = await this.ormRepository.findAndCount(
-      {
-        where: {
-          followed_user_id,
-          is_following: true,
-        },
-        relations: ['users'],
+  public async findFollows(user_id: string): Promise<[Follow[], number]> {
+    const [follows, countOfFollows] = await this.ormRepository.findAndCount({
+      where: {
+        user_id,
+        is_following: true,
       },
-    );
+      relations: ['users'],
+    });
 
-    return [follows, countFollowedUsers];
+    return [follows, countOfFollows];
   }
 
   public async findFollowers(

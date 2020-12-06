@@ -12,31 +12,18 @@ export default class FakeFollowsRepository implements IFollowsRepository {
     return findFollow;
   }
 
-  public async findFollowers(
-    follower_user_id: string,
-  ): Promise<[Follow[], number]> {
-    const findFollowers = this.follows.filter(
-      follow =>
-        follow.follower_user_id === follower_user_id &&
-        follow.is_following === true,
-    );
-    const countOfFollowers = findFollowers.length;
-
-    return [findFollowers, countOfFollowers];
-  }
-
-  public async findFollowedUsers(
+  public async findFollows(
     followed_user_id: string,
   ): Promise<[Follow[], number]> {
-    const findFollowedUsers = this.follows.filter(
+    const findFollows = this.follows.filter(
       follow =>
         follow.followed_user_id === followed_user_id &&
         follow.is_following === true,
     );
 
-    const countOfFollowedUsers = findFollowedUsers.length;
+    const countOfFollows = findFollows.length;
 
-    return [findFollowedUsers, countOfFollowedUsers];
+    return [findFollows, countOfFollows];
   }
 
   public async create(data: ICreateFollowDTO): Promise<Follow> {
