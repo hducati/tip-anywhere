@@ -29,9 +29,9 @@ export default class ListFollowsService {
 
     const [
       follows,
-      countFollowing,
+      countOfFollows,
     ] = await this.followsRepository.findFollowedUsers(followed_user_id);
 
-    return [follows, countFollowing];
+    return [follows, countOfFollows];
   }
 }
