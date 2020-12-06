@@ -28,20 +28,6 @@ export default class FollowsRepository implements IFollowsRepository {
     return [follows, countOfFollows];
   }
 
-  public async findFollowers(
-    follower_user_id: string,
-  ): Promise<[Follow[], number]> {
-    const [follows, countFollowers] = await this.ormRepository.findAndCount({
-      where: {
-        follower_user_id,
-        is_following: true,
-      },
-      relations: ['users'],
-    });
-
-    return [follows, countFollowers];
-  }
-
   public async create(data: ICreateFollowDTO): Promise<Follow> {
     const follow = this.ormRepository.create(data);
 
