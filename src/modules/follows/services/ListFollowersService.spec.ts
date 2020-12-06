@@ -7,7 +7,7 @@ let fakeUsersRepository: FakeUserRepository;
 let fakeFollowsRepository: FakeFollowsRepository;
 let listFollowersService: ListFollowersService;
 
-describe('ListFollowers', async () => {
+describe('ListFollowers', () => {
   beforeEach(() => {
     fakeUsersRepository = new FakeUserRepository();
     fakeFollowsRepository = new FakeFollowsRepository();

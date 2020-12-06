@@ -10,7 +10,7 @@ interface IRequest {
 }
 
 @injectable()
-export default class UpdateTipService {
+export default class UpdateTipStatusService {
   constructor(
     @inject('TipsRepository')
     private tipsRepository: ITipsRepository,
