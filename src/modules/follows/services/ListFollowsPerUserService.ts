@@ -9,7 +9,7 @@ interface IRequest {
 }
 
 @injectable()
-export default class ListFollowsService {
+export default class ListFollowsPerUserService {
   constructor(
     @inject('FollowsRepository')
     private followsRepository: IFollowsRepository,
