@@ -8,4 +8,5 @@ export default interface ICreateTipDTO {
   unit: number;
   description?: string;
   status?: string;
+  scheduled_at?: Date;
 }
