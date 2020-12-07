@@ -13,7 +13,7 @@ export default class FollowsConstroller {
 
     const listFollows = container.resolve(ListFollowsPerUserService);
 
-    const [followers, countFollowing] = follow_user_id
+    const [follows, countOfFollows] = follow_user_id
       ? await listFollows.execute({
           followed_user_id: follow_user_id,
         })
@@ -21,7 +21,7 @@ export default class FollowsConstroller {
           follower_user_id: user_id,
         });
 
-    return response.json([followers, countFollowing]);
+    return response.json([follows, countOfFollows]);
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
