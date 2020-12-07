@@ -9,11 +9,17 @@ export default class FollowsConstroller {
   public async index(request: Request, response: Response): Promise<Response> {
     const user_id = request.user.id;
 
+    const { follow_user_id } = request.body ? request.body : null;
+
     const listFollows = container.resolve(ListFollowsPerUserService);
 
-    const [followers, countFollowing] = await listFollows.execute({
-      user_id,
-    });
+    const [followers, countFollowing] = follow_user_id
+      ? await listFollows.execute({
+          followed_user_id: follow_user_id,
+        })
+      : await listFollows.execute({
+          follower_user_id: user_id,
+        });
 
     return response.json([followers, countFollowing]);
   }
