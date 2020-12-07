@@ -1,17 +1,17 @@
 import AppError from '@shared/errors/AppError';
 import FakeUserRepository from '@modules/users/repositories/fakes/FakeUserRepository';
 import FakeFollowsRepository from '../repositories/fakes/FakeFollowsRepository';
-import ListFollowsService from './ListFollowsService';
+import ListFollowsPerUserService from './ListFollowsPerUserService';
 
 let fakeUsersRepository: FakeUserRepository;
 let fakeFollowsRepository: FakeFollowsRepository;
-let listFollowsService: ListFollowsService;
+let listFollowsService: ListFollowsPerUserService;
 
-describe('ListFollowsService', async () => {
+describe('ListFollowsService', () => {
   beforeEach(() => {
     fakeUsersRepository = new FakeUserRepository();
     fakeFollowsRepository = new FakeFollowsRepository();
-    listFollowsService = new ListFollowsService(
+    listFollowsService = new ListFollowsPerUserService(
       fakeFollowsRepository,
       fakeUsersRepository,
     );
@@ -67,7 +67,7 @@ describe('ListFollowsService', async () => {
   it('should not be able to list from a non-exist user', async () => {
     await expect(
       listFollowsService.execute({
-        followed_user_id: 'follower',
+        follower_user_id: 'follower',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });

@@ -1,5 +1,6 @@
 import { getRepository, Repository } from 'typeorm';
 import ICreateFollowDTO from '@modules/follows/dtos/ICreateFollowDTO';
+import IFollowFilterDTO from '@modules/follows/dtos/IFollowFilterDTO';
 import IFollowsRepository from '@modules/follows/repositories/IFollowsRepository';
 import Follow from '../entities/Follow';
 
@@ -16,34 +17,18 @@ export default class FollowsRepository implements IFollowsRepository {
     return follow;
   }
 
-  public async findFollowedUsers(
-    followed_user_id: string,
+  public async findFollows(
+    follow_filter_data: IFollowFilterDTO,
   ): Promise<[Follow[], number]> {
-    const [follows, countFollowedUsers] = await this.ormRepository.findAndCount(
-      {
-        where: {
-          followed_user_id,
-          is_following: true,
-        },
-        relations: ['users'],
-      },
-    );
-
-    return [follows, countFollowedUsers];
-  }
-
-  public async findFollowers(
-    follower_user_id: string,
-  ): Promise<[Follow[], number]> {
-    const [follows, countFollowers] = await this.ormRepository.findAndCount({
+    const [follows, countOfFollows] = await this.ormRepository.findAndCount({
       where: {
-        follower_user_id,
+        follow_filter_data,
         is_following: true,
       },
       relations: ['users'],
     });
 
-    return [follows, countFollowers];
+    return [follows, countOfFollows];
   }
 
   public async create(data: ICreateFollowDTO): Promise<Follow> {

@@ -1,6 +1,7 @@
 import { uuid } from 'uuidv4';
 import Follow from '../../infra/typeorm/entities/Follow';
 import ICreateFollowDTO from '../../dtos/ICreateFollowDTO';
+import IFollowFilterDTO from '../../dtos/IFollowFilterDTO';
 import IFollowsRepository from '../IFollowsRepository';
 
 export default class FakeFollowsRepository implements IFollowsRepository {
@@ -12,31 +13,28 @@ export default class FakeFollowsRepository implements IFollowsRepository {
     return findFollow;
   }
 
-  public async findFollowers(
-    follower_user_id: string,
+  public async findFollows(
+    follow_filter_data: IFollowFilterDTO,
   ): Promise<[Follow[], number]> {
-    const findFollowers = this.follows.filter(
-      follow =>
-        follow.follower_user_id === follower_user_id &&
-        follow.is_following === true,
-    );
-    const countOfFollowers = findFollowers.length;
+    let { follows } = this;
 
-    return [findFollowers, countOfFollowers];
-  }
+    if (follow_filter_data.followed_user_id) {
+      follows = this.follows.filter(
+        follow =>
+          follow.followed_user_id === follow_filter_data.followed_user_id &&
+          follow.is_following === true,
+      );
+    } else {
+      follows = this.follows.filter(
+        follow =>
+          follow.follower_user_id === follow_filter_data.follower_user_id &&
+          follow.is_following === true,
+      );
+    }
 
-  public async findFollowedUsers(
-    followed_user_id: string,
-  ): Promise<[Follow[], number]> {
-    const findFollowedUsers = this.follows.filter(
-      follow =>
-        follow.followed_user_id === followed_user_id &&
-        follow.is_following === true,
-    );
+    const countOfFollows = follows.length;
 
-    const countOfFollowedUsers = findFollowedUsers.length;
-
-    return [findFollowedUsers, countOfFollowedUsers];
+    return [follows, countOfFollows];
   }
 
   public async create(data: ICreateFollowDTO): Promise<Follow> {

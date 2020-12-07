@@ -42,6 +42,12 @@ class Tip {
   @Column()
   status: string;
 
+  @Column()
+  closed: boolean;
+
+  @Column({ type: 'timestamp with time zone' })
+  scheduled_at: Date;
+
   @ManyToOne(() => User)
   @JoinColumn({ name: 'provider_id' })
   user: User;
