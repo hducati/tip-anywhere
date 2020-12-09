@@ -16,36 +16,34 @@ describe('ListTips', () => {
       provider_id: 'provider',
       odd: 2,
       sport: 'Futebol',
-      tip: 'Futebol é legal',
+      tip: 'Escanteio antes dos 20 minutos',
       game: 'Palmeiras x Santos',
       unit: 2,
-      description: 'bem interessante esse jogo',
-      status: 'Green',
-      league: 'Interessante',
+      description: 'Entrar nos 9 minutos',
+      status: 'Red',
+      league: 'XXXX',
     });
 
     const tip2 = await fakeTipsRepository.create({
       provider_id: 'provider',
       odd: 3,
       sport: 'Futebol',
-      tip: 'Futebol é legal',
-      game: 'Palmeiras x Santos',
+      tip: 'Gol antes dos 10 minutos',
+      game: 'Barcelona x Real',
       unit: 5,
-      description: 'bem interessante esse jogo',
       status: 'Green',
-      league: 'Interessante',
+      league: 'XXXX',
     });
 
     const loggedUser = await fakeTipsRepository.create({
       provider_id: 'provider_logged',
       odd: 3,
       sport: 'Futebol',
-      tip: 'Futebol é legal',
+      tip: 'Escanteio aos 10 minutos',
       game: 'Palmeiras x Santos',
       unit: 5,
-      description: 'bem interessante esse jogo',
       status: 'Green',
-      league: 'Interessante',
+      league: 'Brasileirão',
     });
 
     const [tips, countOfTips] = await showAllTipsService.execute({
