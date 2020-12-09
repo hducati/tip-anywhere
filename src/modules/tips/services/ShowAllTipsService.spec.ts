@@ -49,7 +49,7 @@ describe('ListTips', () => {
     });
 
     const [tips, countOfTips] = await showAllTipsService.execute({
-      provider_id: loggedUser.provider_id,
+      except_provider_id: loggedUser.provider_id,
     });
 
     expect(tips).toEqual([tip1, tip2]);
