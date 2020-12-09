@@ -14,14 +14,6 @@ export default class FakeTipsRepository implements ITipsRepository {
     return findTip;
   }
 
-  public async findByUser(provider_id: string): Promise<Tip[] | undefined> {
-    const findUserTips = this.tips.filter(
-      tip => tip.provider_id === provider_id,
-    );
-
-    return findUserTips;
-  }
-
   public async findAllTips({
     except_provider_id,
   }: IFindAllTipsDTO): Promise<[Tip[], number]> {
@@ -51,7 +43,7 @@ export default class FakeTipsRepository implements ITipsRepository {
     return findTips;
   }
 
-  public async findByTotalTips(provider_id: string): Promise<[Tip[], number]> {
+  public async findByTipster(provider_id: string): Promise<[Tip[], number]> {
     const findTips = this.tips.filter(tip => tip.provider_id === provider_id);
 
     const total = this.tips.filter(tip => tip.provider_id === provider_id)
