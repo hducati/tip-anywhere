@@ -21,14 +21,14 @@ class TipsRepository implements ITipsRepository {
 
   public async findByFilter(
     filter: ISearchFilterDTO,
-  ): Promise<Tip[] | undefined> {
-    const tips = await this.ormRepository.find({
+  ): Promise<[Tip[], number]> {
+    const [tips, countOfTips] = await this.ormRepository.findAndCount({
       where: {
         filter,
       },
     });
 
-    return tips;
+    return [tips, countOfTips];
   }
 
   public async findByTipster(provider_id: string): Promise<[Tip[], number]> {

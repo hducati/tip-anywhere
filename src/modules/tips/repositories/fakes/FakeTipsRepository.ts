@@ -33,14 +33,16 @@ export default class FakeTipsRepository implements ITipsRepository {
     status,
     league,
     sport,
-  }: ISearchFilterDTO): Promise<Tip[] | undefined> {
+  }: ISearchFilterDTO): Promise<[Tip[], number]> {
     const findTips = this.tips.filter(tip => {
       return (
         tip.status === status || tip.league === league || tip.sport === sport
       );
     });
 
-    return findTips;
+    const countOfTips = findTips.length;
+
+    return [findTips, countOfTips];
   }
 
   public async findByTipster(provider_id: string): Promise<[Tip[], number]> {

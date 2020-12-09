@@ -6,7 +6,7 @@ import IFindAllTipsDTO from '../dtos/IFindAllTipsDTO';
 export default interface ITipsRepository {
   findById(id: string): Promise<Tip | undefined>;
   findAllTips(data: IFindAllTipsDTO): Promise<[Tip[], number]>;
-  findByFilter(filter: ISearchFilterDTO): Promise<Tip[] | undefined>;
+  findByFilter(filter: ISearchFilterDTO): Promise<[Tip[], number]>;
   findByTipster(tipster_id: string): Promise<[Tip[], number]>;
   create(data: ICreateTipDTO): Promise<Tip>;
   save(tip: Tip): Promise<Tip>;
