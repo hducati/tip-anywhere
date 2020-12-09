@@ -24,15 +24,11 @@ export default class UpdateFollowService {
 
     if (follow.follower_user_id !== follower_user_id) {
       throw new AppError(
-        'Provider user tried to update a follow not created by himself',
+        'Follower tried to update a follow not created by himself',
       );
     }
 
-    if (follow.is_following === true) {
-      follow.is_following = false;
-    } else {
-      follow.is_following = true;
-    }
+    follow.is_following = follow.is_following !== true;
 
     return this.followsRepository.save(follow);
   }
