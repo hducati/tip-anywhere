@@ -16,10 +16,10 @@ describe('ListTip', () => {
       provider_id: 'provider',
       odd: 2,
       sport: 'Futebol',
-      tip: 'Futebol é legal',
+      tip: 'Vai sair 2 escanteios no primeiro tempo',
       game: 'Palmeiras x Santos',
       unit: 2,
-      description: 'bem interessante esse jogo',
+      description: 'Fiquem espertos no final do jogo',
       status: 'Green',
     });
 
@@ -31,6 +31,6 @@ describe('ListTip', () => {
   });
 
   it('should be able to not list a non existing tip', async () => {
-    expect(listTip.execute({ id: 'asdasd' })).rejects.toBeInstanceOf(AppError);
+    expect(listTip.execute({ id: 'invalid' })).rejects.toBeInstanceOf(AppError);
   });
 });
