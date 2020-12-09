@@ -9,4 +9,5 @@ export default interface ICreateTipDTO {
   description?: string;
   status?: string;
   scheduled_at?: Date;
+  closed?: boolean;
 }

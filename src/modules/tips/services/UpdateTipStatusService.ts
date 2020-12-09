@@ -31,7 +31,12 @@ export default class UpdateTipStatusService {
       throw new AppError('User tried to update to the same value');
     }
 
+    if (tip.closed) {
+      throw new AppError('User tried to update an tip already closed');
+    }
+
     tip.status = status;
+    tip.closed = true;
 
     return this.tipsRepository.save(tip);
   }
