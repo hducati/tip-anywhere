@@ -8,6 +8,7 @@ const followsRouter = Router();
 const followsController = new FollowsController();
 
 followsRouter.use(ensureAuthenticated);
+
 followsRouter.post(
   '/',
   celebrate({
@@ -29,8 +30,5 @@ followsRouter.put(
 
   followsController.update,
 );
-
-followsRouter.get('/following', followsController.index);
-followsRouter.get('/followers', followsController.index);
 
 export default followsRouter;
