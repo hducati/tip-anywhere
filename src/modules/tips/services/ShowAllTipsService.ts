@@ -3,7 +3,7 @@ import ITipsRepository from '../repositories/ITipsRepository';
 import Tip from '../infra/typeorm/entities/Tip';
 
 interface IRequest {
-  provider_id?: string;
+  except_provider_id?: string;
 }
 @injectable()
 export default class ShowAllTips {
@@ -12,9 +12,11 @@ export default class ShowAllTips {
     private tipsRepository: ITipsRepository,
   ) {}
 
-  public async execute({ provider_id }: IRequest): Promise<[Tip[], number]> {
+  public async execute({
+    except_provider_id,
+  }: IRequest): Promise<[Tip[], number]> {
     const [tips, countOfTips] = await this.tipsRepository.findAllTips({
-      except_provider_id: provider_id,
+      except_provider_id,
     });
 
     return [tips, countOfTips];

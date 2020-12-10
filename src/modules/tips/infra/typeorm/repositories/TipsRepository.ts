@@ -19,30 +19,19 @@ class TipsRepository implements ITipsRepository {
     return tip;
   }
 
-  public async findByUser(provider_id: string): Promise<Tip[] | undefined> {
-    const tips = await this.ormRepository.find({
-      where: {
-        provider_id,
-      },
-      relations: ['users'],
-    });
-
-    return tips;
-  }
-
   public async findByFilter(
     filter: ISearchFilterDTO,
-  ): Promise<Tip[] | undefined> {
-    const tips = await this.ormRepository.find({
+  ): Promise<[Tip[], number]> {
+    const [tips, countOfTips] = await this.ormRepository.findAndCount({
       where: {
         filter,
       },
     });
 
-    return tips;
+    return [tips, countOfTips];
   }
 
-  public async findByTotalTips(provider_id: string): Promise<[Tip[], number]> {
+  public async findByTipster(provider_id: string): Promise<[Tip[], number]> {
     const [tips, total] = await this.ormRepository.findAndCount({
       where: {
         provider_id,

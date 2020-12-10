@@ -22,18 +22,18 @@ class ListTipsByFilterService {
     status,
     league,
     sport,
-  }: IRequest): Promise<Tip[] | undefined> {
-    const tips = await this.tipsRepository.findByFilter({
+  }: IRequest): Promise<[Tip[], number]> {
+    const [tips, countOfTips] = await this.tipsRepository.findByFilter({
       status,
       league,
       sport,
     });
 
-    if (!tips) {
-      throw new AppError('Search tip does not exist.');
+    if (countOfTips === 0) {
+      throw new AppError('Filter provided does not exist.');
     }
 
-    return tips;
+    return [tips, countOfTips];
   }
 }
 

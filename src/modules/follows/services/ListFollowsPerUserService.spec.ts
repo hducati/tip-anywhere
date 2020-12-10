@@ -51,17 +51,17 @@ describe('ListFollowsService', () => {
       follower_user_id: followerUser.id,
     });
 
-    const follow3 = await fakeFollowsRepository.create({
+    await fakeFollowsRepository.create({
       followed_user_id: followedUser.id,
       follower_user_id: notFollowerUser.id,
     });
 
     const [follows, countOfFollowers] = await listFollowsService.execute({
-      followed_user_id: followedUser.id,
+      follower_user_id: followerUser.id,
     });
 
-    expect(follows).toEqual([follow1, follow2, follow3]);
-    expect(countOfFollowers).toBe(3);
+    expect(follows).toEqual([follow1, follow2]);
+    expect(countOfFollowers).toBe(2);
   });
 
   it('should not be able to list from a non-exist user', async () => {

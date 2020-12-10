@@ -1,17 +1,17 @@
-import 'reflect-metadata';
+import AppError from '@shared/errors/AppError';
 import FakeTipsRepository from '../repositories/fakes/FakeTipsRepository';
-import ShowAllTipsService from './ShowAllTipsService';
+import ShowTipsByFilterService from './ShowTipsByFilterService';
 
 let fakeTipsRepository: FakeTipsRepository;
-let showAllTipsService: ShowAllTipsService;
+let showTipsByFilterService: ShowTipsByFilterService;
 
-describe('ListTips', () => {
+describe('ShowTipsByFilter', () => {
   beforeEach(() => {
     fakeTipsRepository = new FakeTipsRepository();
-    showAllTipsService = new ShowAllTipsService(fakeTipsRepository);
+    showTipsByFilterService = new ShowTipsByFilterService(fakeTipsRepository);
   });
 
-  it('should be able to list all tips', async () => {
+  it('should be able to filter by the value provided', async () => {
     const tip1 = await fakeTipsRepository.create({
       provider_id: 'provider',
       odd: 2,
@@ -35,22 +35,17 @@ describe('ListTips', () => {
       league: 'XXXX',
     });
 
-    const loggedUser = await fakeTipsRepository.create({
-      provider_id: 'provider_logged',
-      odd: 3,
+    const [tips, countOfTips] = await showTipsByFilterService.execute({
       sport: 'Futebol',
-      tip: 'Escanteio aos 10 minutos',
-      game: 'Palmeiras x Santos',
-      unit: 5,
-      status: 'Green',
-      league: 'Brasileirão',
-    });
-
-    const [tips, countOfTips] = await showAllTipsService.execute({
-      except_provider_id: loggedUser.provider_id,
     });
 
     expect(tips).toEqual([tip1, tip2]);
-    expect(countOfTips).toEqual(2);
+    expect(countOfTips).toBe(2);
+  });
+
+  it('should not be able to filter by a invalid value', async () => {
+    await expect(
+      showTipsByFilterService.execute({ sport: '1111' }),
+    ).rejects.toBeInstanceOf(AppError);
   });
 });
