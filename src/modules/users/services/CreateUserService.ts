@@ -13,9 +13,6 @@ interface IRequest {
   description?: string;
   password: string;
   phone_number?: string;
-  telegram?: string;
-  whatsapp?: string;
-  facebook?: string;
 }
 
 @injectable()
@@ -35,9 +32,6 @@ class CreateUserService {
     description,
     password,
     phone_number,
-    telegram,
-    whatsapp,
-    facebook,
   }: IRequest): Promise<User> {
     const checkUserExists = await this.usersRepository.findByEmail(email);
 
@@ -54,9 +48,6 @@ class CreateUserService {
       description,
       password: hashedPassword,
       phone_number,
-      telegram,
-      whatsapp,
-      facebook,
     });
 
     return user;

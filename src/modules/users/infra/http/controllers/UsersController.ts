@@ -13,9 +13,6 @@ export default class UsersController {
       password,
       description,
       phone_number,
-      telegram,
-      whatsapp,
-      facebook,
     } = request.body;
 
     const createUser = container.resolve(CreateUserService);
@@ -26,9 +23,6 @@ export default class UsersController {
       password,
       description,
       phone_number,
-      telegram,
-      whatsapp,
-      facebook,
     });
 
     return response.json(classToClass(user));

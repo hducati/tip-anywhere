@@ -5,7 +5,4 @@ export default interface ICreateUserDTO {
   description?: string;
   password: string;
   phone_number?: string;
-  telegram?: string;
-  whatsapp?: string;
-  facebook?: string;
 }
