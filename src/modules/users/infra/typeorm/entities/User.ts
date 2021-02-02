@@ -37,15 +37,6 @@ class User {
   phone_number: string;
 
   @Column()
-  telegram: string;
-
-  @Column()
-  whatsapp: string;
-
-  @Column()
-  facebook: string;
-
-  @Column()
   avatar: string;
 
   @CreateDateColumn()

@@ -23,9 +23,6 @@ describe('CreateUser', () => {
       birthday_date: date,
       description: 'achei bem interessante',
       phone_number: '123123213',
-      telegram: 'sdasdsadsa',
-      whatsapp: 'asdasda',
-      facebook: 'daswdsadaw',
     });
 
     expect(user).toHaveProperty('id');
@@ -41,9 +38,6 @@ describe('CreateUser', () => {
       birthday_date: date,
       description: 'achei bem interessante',
       phone_number: '123123213',
-      telegram: 'sdasdsadsa',
-      whatsapp: 'asdasda',
-      facebook: 'daswdsadaw',
     });
 
     await expect(
@@ -54,9 +48,6 @@ describe('CreateUser', () => {
         birthday_date: date,
         description: 'achei bem interessante',
         phone_number: '123123213',
-        telegram: 'sdasdsadsa',
-        whatsapp: 'asdasda',
-        facebook: 'daswdsadaw',
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
