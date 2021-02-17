@@ -15,6 +15,9 @@ import TipsRepository from '@modules/tips/infra/typeorm/repositories/TipsReposit
 import IFollowsRepository from '@modules/follows/repositories/IFollowsRepository';
 import FollowsRepository from '@modules/follows/infra/typeorm/repositories/FollowsRepository';
 
+import IUserAddressesRepository from '@modules/user_addresses/repositories/IUserAddressesRepository';
+import UserAddressesRepository from '@modules/user_addresses/infra/typeorm/repositories/UserAddressesRepository';
+
 container.registerSingleton<IUsersRepository>(
   'UsersRepository',
   UsersRepository,
@@ -31,3 +34,8 @@ container.registerSingleton<IFollowsRepository>(
 );
 
 container.registerSingleton<ITipsRepository>('TipsRepository', TipsRepository);
+
+container.registerSingleton<IUserAddressesRepository>(
+  'UserAddressesRepository',
+  UserAddressesRepository,
+);
