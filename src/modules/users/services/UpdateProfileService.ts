@@ -35,9 +35,6 @@ export default class UpdateProfileService {
     email,
     description,
     phone_number,
-    telegram,
-    whatsapp,
-    facebook,
     password,
     old_password,
   }: IRequest): Promise<User> {
@@ -58,9 +55,6 @@ export default class UpdateProfileService {
     user.description = description;
     user.phone_number = phone_number;
     user.birthday_date = birthday_date;
-    user.telegram = telegram;
-    user.whatsapp = whatsapp;
-    user.facebook = facebook;
 
     if (password && old_password) {
       const verifyOldPassword = await this.hashProvider.compareHash(
