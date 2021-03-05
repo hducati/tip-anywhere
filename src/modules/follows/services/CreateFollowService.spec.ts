@@ -27,9 +27,6 @@ describe('CreateFollow', () => {
       birthday_date: date,
       description: 'achei bem interessante',
       phone_number: '123123213',
-      telegram: 'sdasdsadsa',
-      whatsapp: 'asdasda',
-      facebook: 'daswdsadaw',
     });
 
     const followed_user = await fakeUsersRepository.create({
@@ -39,9 +36,6 @@ describe('CreateFollow', () => {
       birthday_date: date,
       description: 'achei bem interessante',
       phone_number: '123123213',
-      telegram: 'sdasdsadsa',
-      whatsapp: 'asdasda',
-      facebook: 'daswdsadaw',
     });
 
     const follow = await createFollowService.execute({

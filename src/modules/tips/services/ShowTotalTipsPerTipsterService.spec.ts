@@ -26,9 +26,6 @@ describe('ShowTipsPerTipster', () => {
       birthday_date: date,
       description: 'achei bem interessante',
       phone_number: '19971295232',
-      telegram: 'telegram.felipe@telegram.com.br',
-      whatsapp: 'grupodowhatsapp.com.br',
-      facebook: 'facebook.com.br',
     });
 
     const tip1 = await fakeTipsRepository.create({

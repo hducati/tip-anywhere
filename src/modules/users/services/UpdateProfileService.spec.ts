@@ -28,9 +28,6 @@ describe('UpdateProfile', () => {
       birthday_date: date,
       description: 'achei bem interessante',
       phone_number: '123123213',
-      telegram: 'sdasdsadsa',
-      whatsapp: 'asdasda',
-      facebook: 'daswdsadaw',
     });
 
     const updatedUser = await updateProfileService.execute({
@@ -52,9 +49,6 @@ describe('UpdateProfile', () => {
     expect(updatedUser.birthday_date).toBe(date);
     expect(updatedUser.description).toBe('achei bem interessante');
     expect(updatedUser.phone_number).toBe('123123213');
-    expect(updatedUser.telegram).toBe('telegramcleyton.com');
-    expect(updatedUser.whatsapp).toBe('whatsappcleyton.com');
-    expect(updatedUser.facebook).toBe('facebookcleyton.com');
   });
 
   it('should not be able to update the profile from a non-existing user', async () => {
@@ -85,9 +79,6 @@ describe('UpdateProfile', () => {
       birthday_date: date,
       description: 'achei bem interessante',
       phone_number: '123123213',
-      telegram: 'telegramcleyton.com',
-      whatsapp: 'whatsappcleyton.com',
-      facebook: 'facebookcleyton.com',
     });
 
     const user = await fakeUsersRepository.create({
@@ -97,9 +88,6 @@ describe('UpdateProfile', () => {
       birthday_date: date,
       description: 'achei bem interessante',
       phone_number: '123123213',
-      telegram: 'telegramcleyton.com',
-      whatsapp: 'whatsappcleyton.com',
-      facebook: 'facebookcleyton.com',
     });
 
     await expect(
@@ -128,9 +116,6 @@ describe('UpdateProfile', () => {
       birthday_date: date,
       description: 'achei bem interessante',
       phone_number: '123123213',
-      telegram: 'telegramcleyton.com',
-      whatsapp: 'whatsappcleyton.com',
-      facebook: 'facebookcleyton.com',
     });
 
     const updatedUser = await updateProfileService.execute({

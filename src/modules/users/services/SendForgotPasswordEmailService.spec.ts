@@ -34,9 +34,6 @@ describe('SendForgotPasswordEmailService', () => {
       birthday_date: date,
       description: 'achei bem interessante',
       phone_number: '123123213',
-      telegram: 'sdasdsadsa',
-      whatsapp: 'asdasda',
-      facebook: 'daswdsadaw',
     });
 
     await sendForgotPasswordEmailService.execute({
@@ -65,9 +62,6 @@ describe('SendForgotPasswordEmailService', () => {
       birthday_date: date,
       description: 'achei bem interessante',
       phone_number: '123123213',
-      telegram: 'sdasdsadsa',
-      whatsapp: 'asdasda',
-      facebook: 'daswdsadaw',
     });
 
     await sendForgotPasswordEmailService.execute({

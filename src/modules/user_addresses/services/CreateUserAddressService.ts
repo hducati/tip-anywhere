@@ -1,4 +1,6 @@
 import { injectable, inject } from 'tsyringe';
+import IUsersRepository from '@modules/users/repositories/IUsersRepository';
+import AppError from '@shared/errors/AppError';
 import IUserAddressesRepository from '../repositories/IUserAddressesRepository';
 import UserAddress from '../infra/typeorm/entities/UserAddress';
 
@@ -19,6 +21,9 @@ class CreateUserAddresService {
   constructor(
     @inject('UserAddressesRepository')
     private userAddressesRepository: IUserAddressesRepository,
+
+    @inject('UsersRepository')
+    private usersRepository: IUsersRepository,
   ) {}
 
   public async execute({
@@ -32,6 +37,7 @@ class CreateUserAddresService {
     number,
     complement,
   }: IRequest): Promise<UserAddress> {
+    await this.userAvailability(user_id);
     const addressCreator = await this.userAddressesRepository.create({
       user_id,
       country,
@@ -45,6 +51,16 @@ class CreateUserAddresService {
     });
 
     return addressCreator;
+  }
+
+  private async userAvailability(user_id: string) {
+    const findUser = await this.usersRepository.findById(user_id);
+
+    if (!findUser) {
+      throw new AppError('User does not exist');
+    }
+
+    return findUser;
   }
 }
 
