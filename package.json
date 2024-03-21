@@ -68,7 +68,7 @@
     "reflect-metadata": "^0.1.13",
     "reflection": "^0.0.1",
     "tsyringe": "^4.3.0",
-    "typeorm": "^0.2.25",
+    "typeorm": "^0.3.0",
     "uuidv4": "^6.2.1"
   }
 }
